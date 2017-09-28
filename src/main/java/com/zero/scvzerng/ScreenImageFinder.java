@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import static com.zero.scvzerng.ImageUtil.getRGB;
 import static java.util.stream.Collectors.toList;
@@ -17,19 +19,21 @@ import static java.util.stream.Collectors.toList;
  * Created by scvzerng on 2017/7/24.
  */
 public class ScreenImageFinder implements ImageFinder {
-    protected   Robot robot ;
-    protected BufferedImage screen;
-    protected  Dimension dimension;
-    public ScreenImageFinder() {
+     private final    Robot robot = new Robot() ;
+     private final Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+     private final BufferedImage screen = robot.createScreenCapture(new Rectangle(0,0,dimension.width,dimension.height));
+
+    private ScreenImageFinder() throws AWTException {
+    }
+    public static ScreenImageFinder getFinder(){
         try {
-            dimension = Toolkit.getDefaultToolkit().getScreenSize();
-            robot = new Robot();
-            screen = robot.createScreenCapture(new Rectangle(0,0,dimension.width,dimension.height));
+            return new ScreenImageFinder();
         } catch (AWTException e) {
             e.printStackTrace();
-        }
-    }
 
+        }
+        return null;
+    }
     public List<Coordinate> match( BufferedImage image,double percent) {
         //0 0  left top
         //5 0  right top
@@ -64,23 +68,14 @@ public class ScreenImageFinder implements ImageFinder {
         return robot;
     }
 
-    public void setRobot(Robot robot) {
-        this.robot = robot;
-    }
 
     public BufferedImage getScreen() {
         return screen;
     }
 
-    public void setScreen(BufferedImage screen) {
-        this.screen = screen;
-    }
 
     public Dimension getDimension() {
         return dimension;
     }
 
-    public void setDimension(Dimension dimension) {
-        this.dimension = dimension;
-    }
 }

@@ -5,8 +5,8 @@ package com.zero.scvzerng.entity;
  * Created by scvzerng on 2017/7/24.
  */
 public class Coordinate {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Coordinate(int x, int y) {
         this.x = x;
@@ -17,15 +17,9 @@ public class Coordinate {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     public int getY() {
         return y;
     }
 
-    public void setY(int y) {
-        this.y = y;
-    }
 }

@@ -6,6 +6,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  *
@@ -13,8 +14,8 @@ import java.util.List;
  */
 public class Application {
     public static void main(String[] args) throws IOException {
-        ImageFinder finder = new ScreenImageFinder();
-        BufferedImage search = ImageIO.read(Application.class.getClassLoader().getResourceAsStream("help.png"));
+        ImageFinder finder = ScreenImageFinder.getFinder();
+        BufferedImage search = ImageIO.read(Application.class.getClassLoader().getResourceAsStream("360.png"));
         long start = System.currentTimeMillis();
         List<Coordinate> coordinateList = finder.match(search,0.99);
         System.out.println("耗时:"+(System.currentTimeMillis()-start));
